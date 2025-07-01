@@ -1,39 +1,85 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Package Tracker</title>
-  <link rel="stylesheet" href="style.css">
-  <script>
-    function searchTracking() {
-      const number = document.getElementById('tracking-number').value;
-      const output = document.getElementById('tracking-result');
-
-      if (number === '123456') {
-        output.innerHTML = `
-          <h2>Delivery Status: <strong>Out for Delivery</strong></h2>
-          <div class="driver">
-            <img src="https://via.placeholder.com/60" alt="Driver Daniel">
-            <p>Your driver <strong>Daniel</strong> is on the way.</p>
-          </div>
-          <div class="timeline">
-            <div class="event"><strong>Label Created</strong><br>Denver, CO • 3/27/25 8:59 AM</div>
-            <div class="event"><strong>We Have Your Package</strong><br>Littleton, CO • 3/28/25 6:17 PM</div>
-            <div class="event"><strong>On The Way</strong><br>Michigan City, IN • 3/31/25 9:31 AM</div>
-            <div class="event"><strong>Out for Delivery</strong><br>Michigan City, IN • 3/31/25 9:36 AM</div>
-          </div>
-        `;
-      } else {
-        output.innerHTML = "<p style='color: red;'>Tracking number not found. Try '123456'.</p>";
-      }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Package Tracking</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f3f3;
+      margin: 0;
+      padding: 0;
+      color: #333;
     }
-  </script>
+    header {
+      background: #4d148c;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 6px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    .status {
+      padding: 10px 0;
+      border-bottom: 1px solid #ddd;
+    }
+    .status:last-child {
+      border-bottom: none;
+    }
+    .status h3 {
+      margin: 0;
+      color: #4d148c;
+    }
+    .status p {
+      margin: 4px 0;
+      font-size: 0.9em;
+      color: #555;
+    }
+    .delivered {
+      color: green;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-  <h1>Track Your Package</h1>
-  <input type="text" id="tracking-number" placeholder="Enter tracking number">
-  <button onclick="searchTracking()">Track</button>
-
-  <div id="tracking-result" style="margin-top: 20px;"></div>
+  <header>
+    <h1>FedEx Tracking</h1>
+  </header>
+  <div class="container">
+    <h2>Tracking ID: <strong>772266492890</strong></h2>
+    <div class="status">
+      <h3>Delivered</h3>
+      <p class="delivered">Delivered on 2/26/25 at 1:15 PM</p>
+      <p>Location: Smithfield, RI US</p>
+    </div>
+    <div class="status">
+      <h3>Out for Delivery</h3>
+      <p>2/26/25 7:41 AM</p>
+      <p>Warwick, RI</p>
+    </div>
+    <div class="status">
+      <h3>On the Way</h3>
+      <p>2/26/25 7:37 AM</p>
+      <p>Warwick, RI</p>
+    </div>
+    <div class="status">
+      <h3>We Have Your Package</h3>
+      <p>2/24/25 5:20 PM</p>
+      <p>Dubai AE</p>
+    </div>
+    <div class="status">
+      <h3>Label Created</h3>
+      <p>2/24/25 4:08 AM</p>
+      <p>Al Jaraf, AE</p>
+    </div>
+  </div>
 </body>
 </html>
