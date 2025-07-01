@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FedEx Package Tracking</title>
+  <title>Package Tracking</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f3f3f3;
+      background: #f5f5f5;
       margin: 0;
       padding: 0;
       color: #333;
@@ -27,7 +27,7 @@
       box-shadow: 0 0 8px rgba(0,0,0,0.1);
     }
     .status {
-      padding: 10px 0;
+      padding: 12px 0;
       border-bottom: 1px solid #ddd;
     }
     .status:last-child {
@@ -36,6 +36,7 @@
     .status h3 {
       margin: 0;
       color: #4d148c;
+      font-size: 1.1em;
     }
     .status p {
       margin: 4px 0;
@@ -43,7 +44,7 @@
       color: #555;
     }
     .in-transit {
-      color: orange;
+      color: #e67e22;
       font-weight: bold;
     }
   </style>
@@ -53,38 +54,27 @@
     <h1>FedEx Tracking</h1>
   </header>
   <div class="container">
-    <h2>Tracking ID: <strong>832901112345</strong></h2>
+    <h2>Tracking ID: <strong>883726491234</strong></h2>
     <p><strong>Recipient:</strong> Richard Wayne Horner</p>
-    <p><strong>Destination:</strong> Marine, Illinois, US</p>
     <div class="status">
-      <h3>Out for Delivery</h3>
-      <p class="in-transit">Expected delivery by 7/1/2025 end of day</p>
-      <p>Edwardsville, IL</p>
-    </div>
-    <div class="status">
-      <h3>Arrived at Local Facility</h3>
-      <p>6/30/2025 9:45 PM</p>
-      <p>Edwardsville, IL</p>
+      <h3>In Transit</h3>
+      <p class="in-transit">Estimated delivery: 7/3/25 by end of day</p>
+      <p>Current Location: Indianapolis, IN</p>
     </div>
     <div class="status">
       <h3>Departed FedEx Location</h3>
-      <p>6/30/2025 2:10 PM</p>
-      <p>Indianapolis, IN</p>
+      <p>7/1/25 6:15 AM</p>
+      <p>St. Louis, MO</p>
     </div>
     <div class="status">
-      <h3>In Transit</h3>
-      <p>6/29/2025 11:30 AM</p>
-      <p>Indianapolis, IN</p>
-    </div>
-    <div class="status">
-      <h3>Departed FedEx Origin Facility</h3>
-      <p>6/28/2025 8:15 AM</p>
-      <p>Denver, CO</p>
+      <h3>Package Received by FedEx</h3>
+      <p>6/30/25 4:20 PM</p>
+      <p>Marine, IL</p>
     </div>
     <div class="status">
       <h3>Label Created</h3>
-      <p>6/27/2025 4:55 PM</p>
-      <p>Denver, CO</p>
+      <p>6/30/25 11:02 AM</p>
+      <p>Marine, IL</p>
     </div>
   </div>
 </body>
