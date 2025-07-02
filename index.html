@@ -6,92 +6,122 @@
   <title>FedEx Tracking</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #ffffff;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f7f7f7;
       margin: 0;
       padding: 0;
       color: #333;
     }
     header {
-      background-color: #4d148c;
-      color: #fff;
-      padding: 1em;
+      background: #4d148c;
+      padding: 20px;
       text-align: center;
+    }
+    header img {
+      max-width: 150px;
     }
     .container {
       max-width: 600px;
-      margin: 2em auto;
-      padding: 0 1em;
+      background: #fff;
+      margin: 30px auto;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    .tracking-id {
-      font-size: 1.2em;
-      font-weight: bold;
-      margin-bottom: 0.5em;
-    }
-    .recipient {
-      margin-bottom: 1em;
+    h2 {
+      color: #4d148c;
     }
     .status {
-      color: #4d148c;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .status span {
+      display: block;
       font-weight: bold;
-      margin-top: 1em;
-      font-size: 1.1em;
-    }
-    .step {
-      border-top: 1px solid #ccc;
-      padding: 1em 0;
-    }
-    .step:last-child {
-      border-bottom: 1px solid #ccc;
-    }
-    .step .title {
       color: #4d148c;
-      font-weight: bold;
-      margin-bottom: 0.3em;
+      margin-top: 5px;
     }
-    .step .date {
+    .timeline {
+      position: relative;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 20px;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: #4d148c;
+      border-radius: 2px;
+    }
+    .timeline li {
+      position: relative;
+      padding: 20px 20px 20px 50px;
+      border-bottom: 1px solid #eee;
+    }
+    .timeline li:last-child {
+      border-bottom: none;
+    }
+    .timeline li::before {
+      content: "";
+      position: absolute;
+      left: 12px;
+      top: 25px;
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border: 4px solid #4d148c;
+      border-radius: 50%;
+      box-sizing: border-box;
+    }
+    .timeline .location {
+      font-weight: bold;
+      color: #4d148c;
+    }
+    .timeline .date {
       font-size: 0.9em;
       color: #555;
+      margin-top: 4px;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>FedEx Tracking</h1>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/FedEx_Express.svg/320px-FedEx_Express.svg.png" alt="FedEx Logo">
   </header>
   <div class="container">
-    <div class="tracking-id">Tracking ID: 883720491234</div>
-    <div class="recipient">
-      <strong>Recipient:</strong> Richard Wayne Horner
-    </div>
+    <h2>Tracking ID: 8897204912534</h2>
     <div class="status">
-      In Transit
+      <div>Recipient: Richard Wayne Horner</div>
+      <span>In Transit</span>
+      <div>Estimated delivery: 7/3/25 by end of day</div>
+      <div>Current Location: Indianapolis, IN</div>
     </div>
-    <div class="step">
-      <div class="title">Departed FedEx Location</div>
-      <div class="date">7/1/25 6:15 AM</div>
-      <div>St. Louis, MO</div>
-    </div>
-    <div class="step">
-      <div class="title">Arrived at FedEx Facility</div>
-      <div class="date">6/30/25 11:45 PM</div>
-      <div>St. Louis, MO</div>
-    </div>
-    <div class="step">
-      <div class="title">Left Origin Facility</div>
-      <div class="date">6/30/25 6:45 PM</div>
-      <div>Marine, IL</div>
-    </div>
-    <div class="step">
-      <div class="title">Package Received by FedEx</div>
-      <div class="date">6/30/25 4:20 PM</div>
-      <div>Marine, IL</div>
-    </div>
-    <div class="step">
-      <div class="title">Label Created</div>
-      <div class="date">6/30/25 11:02 AM</div>
-      <div>Marine, IL</div>
-    </div>
+    <ul class="timeline">
+      <li>
+        <div class="location">Departed FedEx Location</div>
+        <div class="date">7/1/25 6:15 AM — St. Louis, MO</div>
+      </li>
+      <li>
+        <div class="location">Arrived at FedEx Facility</div>
+        <div class="date">6/30/25 11:45 PM — St. Louis, MO</div>
+      </li>
+      <li>
+        <div class="location">Left Origin Facility</div>
+        <div class="date">6/30/25 6:45 PM — Marine, IL</div>
+      </li>
+      <li>
+        <div class="location">Package Received by FedEx</div>
+        <div class="date">6/30/25 4:20 PM — Marine, IL</div>
+      </li>
+      <li>
+        <div class="location">Label Created</div>
+        <div class="date">6/30/25 11:02 AM — Marine, IL</div>
+      </li>
+    </ul>
   </div>
 </body>
 </html>
