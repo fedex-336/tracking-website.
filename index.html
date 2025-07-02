@@ -7,8 +7,8 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
       background: #f3f3f3;
+      margin: 0;
       color: #333;
     }
     .header {
@@ -20,25 +20,39 @@
     }
     .header img {
       height: 40px;
-      position: absolute;
-      top: 15px;
-      left: 20px;
     }
     .container {
       max-width: 600px;
-      margin: 20px auto;
       background: white;
+      margin: 30px auto;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       position: relative;
+      overflow: hidden;
     }
     .tracking-id {
       font-weight: bold;
       margin-bottom: 10px;
+      font-size: 1.1em;
     }
     .recipient {
-      margin-bottom: 20px;
+      margin-bottom: 15px;
+    }
+    .status-badge {
+      display: inline-block;
+      background: #4d148c;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.9em;
+      margin-bottom: 10px;
+    }
+    .countdown {
+      font-size: 0.95em;
+      margin-bottom: 15px;
+      color: #e67e22;
+      font-weight: bold;
     }
     .timeline {
       position: relative;
@@ -60,44 +74,60 @@
       position: relative;
       padding: 20px 20px 20px 70px;
       border-bottom: 1px solid #eee;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.5s forwards;
     }
-    .event:last-child {
-      border-bottom: none;
-    }
+    .event:nth-child(1) { animation-delay: 0.2s; }
+    .event:nth-child(2) { animation-delay: 0.4s; }
+    .event:nth-child(3) { animation-delay: 0.6s; }
+    .event:nth-child(4) { animation-delay: 0.8s; }
+    .event:nth-child(5) { animation-delay: 1s; }
+    .event:nth-child(6) { animation-delay: 1.2s; }
     .event::before {
       content: "";
       position: absolute;
       left: 17px;
       top: 20px;
-      width: 25px;
-      height: 25px;
+      width: 24px;
+      height: 24px;
       background: #4d148c;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: bold;
     }
-    .event.in-transit::before {
-      content: "→";
-    }
-    .event.completed::before {
-      content: "✓";
-    }
-    .event.pending::before {
-      content: "●";
-    }
+    .event.completed::before { content: "✓"; }
+    .event.in-transit::before { content: "→"; }
+    .event.pending::before { content: "●"; }
     .status {
       font-weight: bold;
       color: #4d148c;
-      font-size: 1.1em;
+      font-size: 1.05em;
     }
     .date {
       font-size: 0.9em;
       color: #555;
       margin-top: 4px;
+    }
+    .contact-button {
+      display: inline-block;
+      margin-top: 15px;
+      background: #ff6600;
+      color: white;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 0.95em;
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
@@ -109,33 +139,54 @@
   <div class="container">
     <div class="tracking-id">Tracking ID: 883720491234</div>
     <div class="recipient">Recipient: Richard Wayne Horner</div>
-
+    <div class="status-badge">In Transit</div>
+    <div class="countdown" id="countdown">Estimated Delivery in: calculating...</div>
     <ul class="timeline">
       <li class="event completed">
         <div class="status">Label Created</div>
-        <div class="date">7/2/2025 9:45 AM - Marine, IL</div>
+        <div class="date">7/2/2025 9:45 AM — Marine, IL</div>
       </li>
       <li class="event completed">
         <div class="status">Package Received by FedEx</div>
-        <div class="date">7/2/2025 12:10 PM - Marine, IL</div>
+        <div class="date">7/2/2025 12:10 PM — Marine, IL</div>
       </li>
       <li class="event completed">
         <div class="status">Left Origin Facility</div>
-        <div class="date">7/2/2025 4:30 PM - Marine, IL</div>
+        <div class="date">7/2/2025 4:30 PM — Marine, IL</div>
       </li>
       <li class="event completed">
         <div class="status">Arrived at FedEx Facility</div>
-        <div class="date">7/2/2025 10:15 PM - St. Louis, MO</div>
+        <div class="date">7/2/2025 10:15 PM — St. Louis, MO</div>
       </li>
       <li class="event in-transit">
         <div class="status">In Transit</div>
-        <div class="date">7/3/2025 - Estimated Delivery by end of day - Indianapolis, IN</div>
+        <div class="date">7/3/2025 — Indianapolis, IN</div>
       </li>
       <li class="event pending">
         <div class="status">Out for Delivery</div>
-        <div class="date">Scheduled for 7/4/2025 - Indianapolis, IN</div>
+        <div class="date">Scheduled for 7/4/2025 — Indianapolis, IN</div>
       </li>
     </ul>
+    <a href="mailto:support@fedex.com" class="contact-button">💬 Contact FedEx Support</a>
   </div>
+  <script>
+    // Countdown to 7/4/2025 17:00
+    const countdownEl = document.getElementById('countdown');
+    const deliveryDate = new Date("2025-07-04T17:00:00");
+    function updateCountdown() {
+      const now = new Date();
+      const diff = deliveryDate - now;
+      if (diff <= 0) {
+        countdownEl.textContent = "Estimated Delivery: Today";
+      } else {
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        countdownEl.textContent = `Estimated Delivery in: ${days}d ${hours}h ${minutes}m`;
+      }
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 60000);
+  </script>
 </body>
 </html>
