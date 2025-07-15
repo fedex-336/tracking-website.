@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FedEx Tracking</title>
   <style>
     body {
@@ -11,33 +10,54 @@
       margin: 0;
       color: #333;
     }
-    .header {
+    .navbar {
       background-color: #4d148c;
       color: white;
-      padding: 20px;
-      text-align: center;
-      position: relative;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
-    .header img {
-      height: 40px;
+    .navbar .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+    .navbar nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 15px;
+      font-size: 0.95em;
     }
     .container {
-      max-width: 600px;
+      max-width: 700px;
       background: white;
       margin: 30px auto;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       position: relative;
-      overflow: hidden;
     }
-    .tracking-id {
-      font-weight: bold;
+    .search-box {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    .search-box input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    .search-box button {
+      padding: 10px 15px;
+      background-color: #4d148c;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .tracking-id, .recipient {
       margin-bottom: 10px;
-      font-size: 1.1em;
-    }
-    .recipient {
-      margin-bottom: 15px;
     }
     .status-badge {
       display: inline-block;
@@ -54,66 +74,57 @@
       color: #e67e22;
       font-weight: bold;
     }
+    .map {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .map img {
+      max-width: 100%;
+      border-radius: 6px;
+    }
     .timeline {
       position: relative;
-      margin: 0;
-      padding: 0;
       list-style: none;
+      padding-left: 50px;
     }
     .timeline::before {
       content: "";
       position: absolute;
-      left: 30px;
+      left: 25px;
       top: 0;
       bottom: 0;
       width: 4px;
       background: #4d148c;
-      border-radius: 2px;
     }
     .event {
       position: relative;
-      padding: 20px 20px 20px 70px;
-      border-bottom: 1px solid #eee;
+      padding: 20px 0;
+      animation: fadeInUp 0.5s forwards;
       opacity: 0;
       transform: translateY(20px);
-      animation: fadeInUp 0.5s forwards;
     }
-    .event:nth-child(1) { animation-delay: 0.2s; }
-    .event:nth-child(2) { animation-delay: 0.4s; }
-    .event:nth-child(3) { animation-delay: 0.6s; }
-    .event:nth-child(4) { animation-delay: 0.8s; }
-    .event:nth-child(5) { animation-delay: 1s; }
-    .event:nth-child(6) { animation-delay: 1.2s; }
     .event::before {
       content: "";
       position: absolute;
-      left: 17px;
+      left: 14px;
       top: 20px;
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
       background: #4d148c;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 14px;
-      font-weight: bold;
     }
-    .event.completed::before { content: "✓"; }
-    .event.in-transit::before { content: "→"; }
-    .event.pending::before { content: "●"; }
+    .event.completed::before { background: #4d148c; }
+    .event.in-transit::before { background: #ff6600; }
+    .event.pending::before { background: gray; }
     .status {
       font-weight: bold;
       color: #4d148c;
-      font-size: 1.05em;
     }
     .date {
       font-size: 0.9em;
       color: #555;
-      margin-top: 4px;
     }
-    .contact-button {
+    .contact-button, .receipt-button {
       display: inline-block;
       margin-top: 15px;
       background: #ff6600;
@@ -122,6 +133,33 @@
       padding: 8px 16px;
       border-radius: 4px;
       font-size: 0.95em;
+      margin-right: 10px;
+    }
+    .receipt-popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 20px;
+      border: 2px solid #4d148c;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      z-index: 999;
+    }
+    .receipt-popup h3 {
+      margin-top: 0;
+      color: #4d148c;
+    }
+    .close-btn {
+      margin-top: 10px;
+      background: #4d148c;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
     }
     @keyframes fadeInUp {
       to {
@@ -132,31 +170,42 @@
   </style>
 </head>
 <body>
-  <div class="header">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/FedEx_Express.svg/320px-FedEx_Express.svg.png" alt="FedEx Logo"/>
-    <h1>FedEx Tracking</h1>
+  <div class="navbar">
+    <div class="logo">FedEx</div>
+    <nav>
+      <a href="#">Track</a>
+      <a href="#">Support</a>
+      <a href="#">Login</a>
+    </nav>
   </div>
   <div class="container">
+    <div class="search-box">
+      <input type="text" placeholder="Enter Tracking ID" />
+      <button>Track</button>
+    </div>
     <div class="tracking-id">Tracking ID: 883720491234</div>
     <div class="recipient">Recipient: Richard Wayne Horner</div>
     <div class="status-badge">In Transit</div>
     <div class="countdown" id="countdown">Estimated Delivery in: calculating...</div>
+    <div class="map">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/US_Interstate_55.svg/1200px-US_Interstate_55.svg.png" alt="Map Route Preview">
+    </div>
     <ul class="timeline">
       <li class="event completed">
         <div class="status">Label Created</div>
-        <div class="date">7/2/2025 9:45 AM — Marine, IL</div>
+        <div class="date">7/2/2025 — Marine, IL</div>
       </li>
       <li class="event completed">
         <div class="status">Package Received by FedEx</div>
-        <div class="date">7/2/2025 12:10 PM — Marine, IL</div>
+        <div class="date">7/2/2025 — Marine, IL</div>
       </li>
       <li class="event completed">
         <div class="status">Left Origin Facility</div>
-        <div class="date">7/2/2025 4:30 PM — Marine, IL</div>
+        <div class="date">7/2/2025 — Marine, IL</div>
       </li>
       <li class="event completed">
         <div class="status">Arrived at FedEx Facility</div>
-        <div class="date">7/2/2025 10:15 PM — St. Louis, MO</div>
+        <div class="date">7/2/2025 — St. Louis, MO</div>
       </li>
       <li class="event in-transit">
         <div class="status">In Transit</div>
@@ -167,10 +216,18 @@
         <div class="date">Scheduled for 7/4/2025 — Indianapolis, IN</div>
       </li>
     </ul>
-    <a href="mailto:support@fedex.com" class="contact-button">💬 Contact FedEx Support</a>
+    <a href="#" class="contact-button">💬 Contact Support</a>
+    <a href="#" class="receipt-button" onclick="document.getElementById('receipt').style.display='block'">📄 View Receipt</a>
+  </div>
+  <div class="receipt-popup" id="receipt">
+    <h3>FedEx Shipment Receipt</h3>
+    <p><strong>Tracking ID:</strong> 883720491234</p>
+    <p><strong>Recipient:</strong> Richard Wayne Horner</p>
+    <p><strong>Route:</strong> Marine, IL ➜ St. Louis, MO ➜ Indianapolis, IN</p>
+    <p><strong>Status:</strong> In Transit</p>
+    <button class="close-btn" onclick="document.getElementById('receipt').style.display='none'">Close</button>
   </div>
   <script>
-    // Countdown to 7/4/2025 17:00
     const countdownEl = document.getElementById('countdown');
     const deliveryDate = new Date("2025-07-04T17:00:00");
     function updateCountdown() {
@@ -189,4 +246,4 @@
     setInterval(updateCountdown, 60000);
   </script>
 </body>
-</html>
+      </html>
