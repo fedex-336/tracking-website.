@@ -1,86 +1,62 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FedEx Tracking - V2</title>
-  <link rel="manifest" href="manifest.json">
+  <meta charset="UTF-8">
+  <title>Package Tracker</title>
   <style>
-    :root {
-      --purple: #4d148c;
-      --orange: #ff6600;
-      --light: #f3f3f3;
-      --glass-bg: rgba(255, 255, 255, 0.8);
-      --shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: var(--light);
-      color: #333;
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f9f9f9;
     }
-    .header {
-      background: var(--purple);
-      color: white;
-      padding: 1.5rem;
-      text-align: center;
+    h1, h2 {
+      color: #4a148c;
     }
-    .header img {
-      height: 40px;
-      margin-bottom: 0.5rem;
-    }
-    .container {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 1.5rem;
-      background: var(--glass-bg);
-      backdrop-filter: blur(12px);
-      border-radius: 15px;
-      box-shadow: var(--shadow);
-    }
-    .progress-bar {
-      height: 10px;
-      background: #ddd;
-      border-radius: 5px;
-      margin: 1rem 0;
-      overflow: hidden;
-    }
-    .progress {
-      height: 10px;
-      background: var(--purple);
-      width: 70%;
-      transition: width 0.4s ease-in-out;
-    }
-    .tracking-info {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 1rem;
+    .info {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
     .timeline {
-      list-style: none;
-      padding-left: 20px;
-      position: relative;
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 9px;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: var(--purple);
+    .timeline .event {
+      border-left: 4px solid #6a1b9a;
+      padding-left: 10px;
+      margin-bottom: 15px;
     }
-    .timeline li {
-      position: relative;
-      margin-bottom: 1rem;
+    .timeline .current {
+      background: #ede7f6;
     }
-    .timeline li::before {
-      content: "";
-      position: absolute;
-      left: -3px;
-      width: 12px;
-      height: 12px;
-      background: var(--purple);
-      border-radius: 50%;
+    .status {
+      color: #2e7d32;
+      font-weight: bold;
     }
-    .smart-response {
-      background: #f9f9
+  </style>
+</head>
+<body>
+  <h1>Tracking Information</h1>
+
+  <div class="info">
+    <p><strong>Receiver:</strong> Richard Horner</p>
+    <p><strong>Address:</strong> 205 E. Linden St, Marine, Illinois 62061</p>
+    <p><strong>Tracking Number:</strong> FDX837465291US</p>
+    <p><strong>Status:</strong> <span class="status">Out for Delivery</span></p>
+    <p><strong>Driver:</strong> Douglas Smith</p>
+    <p><strong>Estimated Delivery:</strong> Today by 7:00 PM</p>
+  </div>
+
+  <h2>Delivery Timeline</h2>
+  <div class="timeline">
+    <div class="event"><strong>Label Created</strong><br>Denver, CO • 9/26/25 – 8:15 AM</div>
+    <div class="event"><strong>Package Picked Up</strong><br>Littleton, CO • 9/26/25 – 5:42 PM</div>
+    <div class="event"><strong>In Transit</strong><br>St. Louis, MO • 9/27/25 – 4:03 PM</div>
+    <div class="event current"><strong>Out for Delivery</strong><br>Marine, IL • Today – 9:00 AM</div>
+  </div>
+</body>
+</html>
